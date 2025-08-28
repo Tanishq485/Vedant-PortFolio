@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+:root {
+  --hue-6-transparent: rgba(140, 240, 204, 0.6);
+}
