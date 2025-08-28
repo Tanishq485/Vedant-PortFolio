@@ -22,6 +22,20 @@ function autoBind(instance) {
   });
 }
 
+// Convert hex color (e.g. "#1a2b3c" or "#abc") to normalized RGB array
+function hexToRgb(hex) {
+  if (!hex) return [0, 0, 0];
+  let h = hex.replace('#', '').trim();
+  if (h.length === 3) {
+    h = h.split('').map(c => c + c).join('');
+  }
+  const int = parseInt(h, 16);
+  const r = (int >> 16) & 255;
+  const g = (int >> 8) & 255;
+  const b = int & 255;
+  return [r / 255, g / 255, b / 255];
+}
+
 function createTextTexture(gl, text, font = "bold 30px monospace", color = "black") {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
@@ -111,6 +125,7 @@ class Media {
     textColor,
     borderRadius = 0,
     font,
+  bgColor,
   }) {
     this.extra = 0;
     this.geometry = geometry;
@@ -131,6 +146,7 @@ class Media {
     this.textColor = textColor;
     this.borderRadius = borderRadius;
     this.font = font;
+    this.bgColor = bgColor || '#111111';
     this.createShader();
     this.createMesh();
     this.createTitle();
@@ -165,6 +181,7 @@ class Media {
         uniform vec2 uPlaneSizes;
         uniform sampler2D tMap;
         uniform float uBorderRadius;
+        uniform vec3 uBgColor;
         varying vec2 vUv;
         
         float roundedBoxSDF(vec2 p, vec2 b, float r) {
@@ -181,15 +198,15 @@ class Media {
             vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
             vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
           );
-          vec4 color = texture2D(tMap, uv);
+          vec4 texColor = texture2D(tMap, uv);
           
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
           
           // Smooth antialiasing for edges
           float edgeSmooth = 0.002;
           float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
-          
-          gl_FragColor = vec4(color.rgb, alpha);
+          vec3 finalRgb = mix(uBgColor, texColor.rgb, texColor.a);
+          gl_FragColor = vec4(finalRgb, alpha);
         }
       `,
       uniforms: {
@@ -199,6 +216,7 @@ class Media {
         uSpeed: { value: 0 },
         uTime: { value: 100 * Math.random() },
         uBorderRadius: { value: this.borderRadius },
+        uBgColor: { value: hexToRgb(this.bgColor) },
       },
       transparent: true,
     });
@@ -298,6 +316,7 @@ class App {
       font = "bold 30px Figtree",
       scrollSpeed = 2,
       scrollEase = 0.05,
+  imageBgColor = '#111111',
     } = {}
   ) {
     document.documentElement.classList.remove("no-js");
@@ -310,7 +329,7 @@ class App {
     this.createScene();
     this.onResize();
     this.createGeometry();
-    this.createMedias(items, bend, textColor, borderRadius, font);
+  this.createMedias(items, bend, textColor, borderRadius, font, imageBgColor);
     this.update();
     this.addEventListeners();
   }
@@ -338,7 +357,7 @@ class App {
       widthSegments: 100,
     });
   }
-  createMedias(items, bend = 1, textColor, borderRadius, font) {
+  createMedias(items, bend = 1, textColor, borderRadius, font, imageBgColor) {
     const defaultItems = [
       { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: "Bridge" },
       { image: `https://picsum.photos/seed/2/800/600?grayscale`, text: "Desk Setup" },
@@ -375,6 +394,7 @@ class App {
         textColor,
         borderRadius,
         font,
+  bgColor: imageBgColor,
       });
     });
   }
@@ -473,6 +493,7 @@ export default function CircularGallery({
   font = "bold 30px Figtree",
   scrollSpeed = 2,
   scrollEase = 0.05,
+  imageBgColor = '#111111',
 }) {
   const containerRef = useRef(null);
   const [selected, setSelected] = useState(null); // {title, description, video, link, github}
@@ -519,7 +540,7 @@ export default function CircularGallery({
   const closeModal = useCallback(() => setSelected(null), []);
 
   useEffect(() => {
-    const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase });
+  const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, imageBgColor });
     containerRef.current.__app = app;
     return () => { app.destroy(); };
   }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase]);
