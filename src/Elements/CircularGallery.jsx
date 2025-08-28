@@ -1,5 +1,5 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from "ogl";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 function debounce(func, wait) {
   let timeout;
@@ -102,6 +102,10 @@ class Media {
     scene,
     screen,
     text,
+  description,
+  video,
+  link,
+  github,
     viewport,
     bend,
     textColor,
@@ -117,7 +121,11 @@ class Media {
     this.renderer = renderer;
     this.scene = scene;
     this.screen = screen;
-    this.text = text;
+  this.text = text;
+  this.description = description;
+  this.video = video;
+  this.link = link;
+  this.github = github;
     this.viewport = viewport;
     this.bend = bend;
     this.textColor = textColor;
@@ -358,6 +366,10 @@ class App {
         scene: this.scene,
         screen: this.screen,
         text: data.text,
+        description: data.description,
+        video: data.video,
+        link: data.link,
+        github: data.github,
         viewport: this.viewport,
         bend,
         textColor,
@@ -463,11 +475,107 @@ export default function CircularGallery({
   scrollEase = 0.05,
 }) {
   const containerRef = useRef(null);
+  const [selected, setSelected] = useState(null); // {title, description, video, link, github}
+  const videoRef = useRef(null);
+  const downRef = useRef({ x: 0, y: 0, time: 0 });
+
+  const pickNearest = useCallback((clientX) => {
+    if (!containerRef.current || !containerRef.current.__app) return null;
+    const app = containerRef.current.__app;
+    const rect = containerRef.current.getBoundingClientRect();
+    const normX = ((clientX - rect.left) / rect.width) * 2 - 1; // -1..1
+    const worldX = normX * (app.viewport.width / 2);
+    let nearest = null;
+    let minDist = Infinity;
+    app.medias.forEach(m => {
+      const dist = Math.abs(m.plane.position.x - worldX);
+      if (dist < minDist) { minDist = dist; nearest = m; }
+    });
+    return nearest;
+  }, []);
+
+  const handleMouseDown = useCallback((e) => {
+    downRef.current = { x: e.clientX, y: e.clientY, time: Date.now() };
+  }, []);
+
+  const handleMouseUp = useCallback((e) => {
+    const { x, y, time } = downRef.current;
+    const moved = Math.hypot(e.clientX - x, e.clientY - y);
+    const duration = Date.now() - time;
+    if (moved < 6 && duration < 400) {
+      const nearest = pickNearest(e.clientX);
+      if (nearest) {
+        setSelected({
+          title: nearest.text,
+            description: nearest.description,
+            video: nearest.video,
+            link: nearest.link,
+            github: nearest.github,
+        });
+      }
+    }
+  }, [pickNearest]);
+
+  const closeModal = useCallback(() => setSelected(null), []);
+
   useEffect(() => {
     const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase });
-    return () => {
-      app.destroy();
-    };
+    containerRef.current.__app = app;
+    return () => { app.destroy(); };
   }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase]);
-  return <div className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing" ref={containerRef} />;
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.addEventListener('mousedown', handleMouseDown);
+    el.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      el.removeEventListener('mousedown', handleMouseDown);
+      el.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [handleMouseDown, handleMouseUp]);
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') closeModal(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [closeModal]);
+
+  useEffect(() => {
+    if (videoRef.current && selected?.video) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(()=>{});
+    }
+  }, [selected]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden cursor-grab active:cursor-grabbing" ref={containerRef}>
+      {selected && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={closeModal} />
+          <div className="relative w-[90%] max-w-5xl min-h-[50vh] bg-zinc-900/90 rounded-2xl shadow-2xl ring-1 ring-white/10 overflow-hidden flex flex-col md:flex-row animate-in fade-in zoom-in duration-200">
+            <button onClick={closeModal} className="absolute top-3 right-3 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 rounded-full w-9 h-9 flex items-center justify-center text-lg leading-none">×</button>
+            <div className="md:w-1/2 w-full aspect-video md:aspect-auto relative bg-black">
+              {selected.video && (
+                <video ref={videoRef} src={selected.video} muted loop playsInline controls className="absolute inset-0 w-full h-full object-cover" />
+              )}
+              {!selected.video && (
+                <div className="absolute inset-0 flex items-center justify-center text-white/60 text-sm">No video</div>
+              )}
+            </div>
+            <div className="flex-1 p-6 md:p-8 overflow-y-auto flex flex-col gap-5">
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">{selected.title}</h3>
+              </div>
+              {selected.description && <p className="text-sm md:text-base leading-relaxed text-gray-300 whitespace-pre-line">{selected.description}</p>}
+              <div className="mt-auto flex gap-4 flex-wrap pt-2">
+                {selected.link && <a href={selected.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold px-6 py-2.5 transition-colors shadow-sm">Live Demo</a>}
+                {selected.github && <a href={selected.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 text-white text-sm font-semibold px-6 py-2.5 transition-colors">GitHub</a>}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
