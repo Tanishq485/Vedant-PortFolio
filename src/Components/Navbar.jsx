@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
@@ -6,6 +6,19 @@ import { useNavigate } from 'react-router-dom'
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const navigate = useNavigate()
+
+  // Lock background scroll when menu is open (mobile friendliness)
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = originalOverflow || ''
+    }
+    return () => {
+      document.body.style.overflow = originalOverflow || ''
+    }
+  }, [isMenuOpen])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -48,9 +61,10 @@ const Navbar = () => {
 
   // Animation for step sections (strips coming from top to bottom, right to left)
   const stepVariants = {
-    hidden: { scaleY: 0, transformOrigin: 'top' },
+    hidden: { scaleY: 0, opacity: 0, transformOrigin: 'top' },
     visible: (i) => ({
       scaleY: 1,
+      opacity: 1,
       transformOrigin: 'top',
       transition: {
         delay: (4 - i) * 0.15, // Right to left delay (reverse index)
@@ -60,10 +74,11 @@ const Navbar = () => {
     }),
     exit: (i) => ({
       scaleY: 0,
+      opacity: 0,
       transformOrigin: 'top',
       transition: {
         delay: i * 0.1, // Left to right exit
-        duration: 0.4,
+        duration: 0.6,
         ease: 'easeIn'
       }
     })
@@ -91,23 +106,25 @@ const Navbar = () => {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50 text-white">
-        <div className="h-[20vh] flex items-center justify-end px-8 md:px-16">
+      <nav className="fixed top-0 left-0 w-full z-50 text-white pointer-events-none">
+        <div className="flex items-center justify-end px-4 sm:px-6 md:px-10 lg:px-16 h-16 sm:h-20 md:h-[18vh] lg:h-[20vh]">
           {/* Hamburger Menu Button - positioned to align with Hero's right navigation */}
           <motion.button
             onClick={toggleMenu}
-            className="p-2 rounded-lg hover:bg-black transition-colors duration-200"
+            className="pointer-events-auto p-2 sm:p-3 rounded-lg/none sm:rounded-lg hover:bg-black/60 active:bg-black/70 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70"
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-haspopup="true"
           >
             <motion.div
               animate={isMenuOpen ? { rotate: 180 } : { rotate: 0 }}
               transition={{ duration: 0.3 }}
             >
               {isMenuOpen ? (
-                <X className="w-32 h-32 text-white" />
+                <X className="text-white w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32" />
               ) : (
-                <Menu className="w-32 h-32 text-white" />
+                <Menu className="text-white w-9 h-9 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-20 md:h-20 lg:w-28 lg:h-28 xl:w-32 xl:h-32" />
               )}
             </motion.div>
           </motion.button>
@@ -118,7 +135,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-40 flex"
+      className="fixed inset-0 z-40 flex touch-none"
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -131,10 +148,8 @@ const Navbar = () => {
                 variants={stepVariants}
                 className="flex-1 h-full"
                 style={{
-                  // background: `linear-gradient(180deg, 
-                  //   hsl(${220 + i * 10}, 30%, ${15 - i * 2}%), 
-                  //   hsl(${240 + i * 5}, 25%, ${10 - i * 1}%))`
-                  backgroundColor:'black'
+                  // background: `linear-gradient(180deg, hsl(${220 + i * 8} 40% ${20 - i * 2}%), hsl(${240 + i * 6} 28% ${10 - i}%))`
+                  backgroundColor: 'black'
                 }}
               />
             ))}
@@ -146,7 +161,7 @@ const Navbar = () => {
             >
               <div className="text-center">
                 {/* Navigation Links */}
-                <nav className="space-y-8">
+    <nav className="space-y-6 sm:space-y-7 md:space-y-8 px-4 sm:px-0">
                   {navLinks.map((link, index) => (
                     <motion.div
                       key={link.name}
@@ -155,7 +170,7 @@ const Navbar = () => {
                     >
                       <motion.button
                         onClick={() => handleNavClick(link.path)}
-                        className="group relative block text-white text-4xl md:text-6xl font-light w-full text-left focus:outline-none"
+      className="group relative block text-white text-3xl sm:text-4xl md:text-6xl font-light w-full text-left focus:outline-none"
                         whileHover={{ scale: 1.04, x: -6 }}
                         whileTap={{ scale: 0.86, rotate: -6, x: -4 }}
                         transition={{ type: 'spring', stiffness: 200, damping: 18 }}
@@ -176,18 +191,18 @@ const Navbar = () => {
 
                 {/* Social Links or Additional Info */}
                 <motion.div
-                  className="mt-16 space-x-6"
+                  className="mt-12 sm:mt-14 md:mt-16 space-x-4 sm:space-x-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                 >
-                  <span className="text-gray-400 text-sm">Follow me</span>
-                  <div className="flex justify-center space-x-4 mt-4">
+                  <span className="text-gray-400 text-xs sm:text-sm tracking-wide uppercase">Follow me</span>
+                  <div className="flex justify-center space-x-3 sm:space-x-4 mt-4">
                     {['LinkedIn', 'GitHub', 'Twitter'].map((social, index) => (
                       <motion.a
                         key={social}
                         href="#"
-                        className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+                        className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors duration-200"
                         whileHover={{ y: -2 }}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
