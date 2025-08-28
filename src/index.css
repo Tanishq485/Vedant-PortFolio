@@ -3,3 +3,15 @@
 :root {
   --hue-6-transparent: rgba(140, 240, 204, 0.6);
 }
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure sections are properly spaced and scrollable */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}

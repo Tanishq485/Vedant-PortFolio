@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const navigate = useNavigate()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  const handleNavClick = (path) => {
+    navigate(path)
+    setIsMenuOpen(false) // Close the menu after navigation
+  }
+
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Skills', path: '/skills' },
+    { name: 'Contact', path: '/contact' }
   ]
 
   // Animation variants for the step-like overlay
@@ -82,56 +89,25 @@ const Navbar = () => {
     <>
       {/* Main Navbar */}
       <nav className="fixed top-0 left-0 w-full z-50 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[20vh] flex items-center justify-center ">
-          <div className="flex justify-between items-center h-16 w-full ">
-            {/* Logo/Brand */}
-            <div className="flex-1 flex justify-center sm:justify-start">
-              <motion.h1 
-                className="text-5xl font-bold text-white"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                
-              </motion.h1>
-            </div>
-
-            {/* Hamburger Menu Button */}
-            <motion.button
-              onClick={toggleMenu}
-              className="p-2 rounded-lg hover:bg-black transition-colors duration-200"
-              whileTap={{ scale: 0.95 }}
-              aria-label="Toggle menu"
+        <div className="h-[20vh] flex items-center justify-end px-8 md:px-16">
+          {/* Hamburger Menu Button - positioned to align with Hero's right navigation */}
+          <motion.button
+            onClick={toggleMenu}
+            className="p-2 rounded-lg hover:bg-black transition-colors duration-200"
+            whileTap={{ scale: 0.95 }}
+            aria-label="Toggle menu"
+          >
+            <motion.div
+              animate={isMenuOpen ? { rotate: 180 } : { rotate: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              <motion.div
-                animate={isMenuOpen ? { rotate: 180 } : { rotate: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {isMenuOpen ? (
-                  <X className="w-32 h-32 text-white hober" />
-                ) : (
-                  <Menu className="w-32 h-32 text-white hober" />
-                )}
-              </motion.div>
-            </motion.button>
-
-            {/* Desktop Navigation Links */}
-            {/* <div className="hidden md:flex space-x-8">
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors duration-200"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 * index }}
-                  whileHover={{ y: -2 }}
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-            </div> */}
-          </div>
+              {isMenuOpen ? (
+                <X className="w-32 h-32 text-white" />
+              ) : (
+                <Menu className="w-32 h-32 text-white" />
+              )}
+            </motion.div>
+          </motion.button>
         </div>
       </nav>
 
@@ -174,10 +150,9 @@ const Navbar = () => {
                       custom={index}
                       variants={linkVariants}
                     >
-                      <a
-                        href={link.href}
-                        onClick={toggleMenu}
-                        className="block text-white text-4xl md:text-6xl font-light hover:text-gray-300 transition-colors duration-300"
+                      <button
+                        onClick={() => handleNavClick(link.path)}
+                        className="block text-white text-4xl md:text-6xl font-light hover:text-gray-300 transition-colors duration-300 w-full text-left"
                       >
                         <motion.span
                           whileHover={{ 
@@ -188,7 +163,7 @@ const Navbar = () => {
                         >
                           {link.name}
                         </motion.span>
-                      </a>
+                      </button>
                     </motion.div>
                   ))}
                 </nav>
