@@ -92,11 +92,11 @@ const App = () => {
       <Navbar />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageWrapper><Hero /></PageWrapper>} />
-          <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-          <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
-          <Route path="/skills" element={<PageWrapper><Skills /></PageWrapper>} />
-          <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+          <Route path="/" element={<><Hero /></>} />
+          <Route path="/about" element={<><About /></>} />
+          <Route path="/projects" element={<><Projects /></>} />
+          <Route path="/skills" element={<><Skills /></>} />
+          <Route path="/contact" element={<><Contact /></>} />
         </Routes>
       </AnimatePresence>
     </>
