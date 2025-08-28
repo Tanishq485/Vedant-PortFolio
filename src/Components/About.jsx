@@ -59,16 +59,16 @@ const About = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
-      className="relative overflow-hidden min-h-screen w-full py-24 px-6 md:px-10 lg:px-14 bg-gradient-to-br from-gray-900 via-gray-900 to-gray-950 text-gray-200"
+  className="relative overflow-hidden min-h-screen w-full py-24 px-6 md:px-10 lg:px-14 bg-gradient-to-br from-black via-neutral-900 to-black text-gray-100"
     >
       {/* Ambient gradients */}
-      <div className="pointer-events-none absolute -top-32 -right-32 w-80 h-80 rounded-full bg-teal-500/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 w-[28rem] h-[28rem] rounded-full bg-cyan-400/10 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/2 -left-32 w-72 h-72 rounded-full bg-amber-400/5 blur-3xl" />
+  <div className="pointer-events-none absolute -top-32 -right-32 w-80 h-80 rounded-full bg-orange-600/10 blur-3xl" />
+  <div className="pointer-events-none absolute bottom-0 left-0 w-[28rem] h-[28rem] rounded-full bg-orange-500/5 blur-3xl" />
+  <div className="pointer-events-none absolute top-1/2 -left-32 w-72 h-72 rounded-full bg-orange-400/10 blur-3xl" />
 
       <motion.header variants={fadeUp} className="relative z-10 max-w-4xl">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight gradient-text">About Me</h2>
-        <p className="mt-3 text-sm md:text-base font-medium tracking-wide text-teal-300/90 uppercase">Full Stack Developer • Builder • Problem Solver</p>
+  <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white">About Me</h2>
+  <p className="mt-3 text-sm md:text-base font-medium tracking-wide text-orange-400/90 uppercase">Full Stack Developer • Builder • Problem Solver</p>
       </motion.header>
 
       <motion.div variants={fadeUp} className="relative z-10 mt-10 max-w-4xl space-y-6 text-base md:text-lg leading-relaxed text-gray-300">
@@ -82,8 +82,8 @@ const About = () => {
 
       {/* Projects grid */}
       <motion.div variants={fadeUp} className="relative z-10 mt-16">
-        <h3 className="text-xl font-semibold flex items-center gap-2 mb-6">
-          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-teal-400/10 ring-1 ring-teal-400/30"><Code2 size={18} /></span>
+        <h3 className="text-xl font-semibold flex items-center gap-2 mb-6 text-white">
+          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-orange-500/10 ring-1 ring-orange-500/30 text-orange-400"><Code2 size={18} /></span>
           Selected Projects
         </h3>
         <div className="grid gap-6 md:grid-cols-2">
@@ -95,11 +95,11 @@ const About = () => {
                 variants={popCard}
                 whileHover={{ y: -6, scale: 1.015 }}
                 whileTap={{ scale: 0.97 }}
-                className="group relative overflow-hidden rounded-xl border border-gray-700/60 bg-gray-800/40 backdrop-blur-sm p-5 shadow-sm transition-all duration-500"
+                className="group relative overflow-hidden rounded-xl border border-neutral-700/60 bg-neutral-900/40 backdrop-blur-sm p-5 shadow-sm transition-all duration-500"
               >
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${p.accent} mix-blend-overlay`} />
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-orange-600 via-orange-500 to-amber-400 mix-blend-overlay`} />
                 <div className="relative flex items-start gap-4">
-                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-gray-900/60 border border-gray-600/50 text-teal-300 group-hover:text-white transition-colors">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-neutral-950/60 border border-neutral-700/60 text-orange-400 group-hover:text-white transition-colors">
                     <Icon size={22} />
                   </span>
                   <div className="space-y-2">
@@ -115,8 +115,8 @@ const About = () => {
 
       {/* Achievements timeline */}
       <motion.div variants={fadeUp} className="relative z-10 mt-20 max-w-3xl">
-        <h3 className="text-xl font-semibold flex items-center gap-2 mb-6">
-          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-amber-400/10 ring-1 ring-amber-400/30"><Award size={18} /></span>
+        <h3 className="text-xl font-semibold flex items-center gap-2 mb-6 text-white">
+          <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-orange-500/10 ring-1 ring-orange-500/30 text-orange-400"><Award size={18} /></span>
           Achievements
         </h3>
         <ol className="relative border-l border-gray-700/60 pl-6 space-y-6">
@@ -126,7 +126,7 @@ const About = () => {
               variants={popCard}
               className="relative"
             >
-              <span className="absolute -left-3 top-1.5 w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-teal-400 to-cyan-300 ring-2 ring-gray-900" />
+              <span className="absolute -left-3 top-1.5 w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-orange-500 to-amber-300 ring-2 ring-black" />
               <p className="text-sm md:text-[0.92rem] text-gray-300">{a}</p>
             </motion.li>
           ))}
@@ -137,22 +137,22 @@ const About = () => {
       <motion.div variants={fadeUp} className="relative z-10 mt-20 max-w-3xl">
         <h3 className="text-xl font-semibold mb-4">Contact</h3>
         <div className="text-sm md:text-base space-y-2 text-gray-300">
-          <p>Email: <a href="mailto:Tanishq485@gmail.com" className="text-teal-300 hover:text-teal-200 underline decoration-teal-400/60 decoration-2 underline-offset-4">Tanishq485@gmail.com</a></p>
-          <p>Mobile: <a href="tel:+918103942742" className="hover:text-teal-200">+91 81039 42742</a></p>
+          <p>Email: <a href="mailto:Tanishq485@gmail.com" className="text-orange-400 hover:text-orange-300 underline decoration-orange-500/60 decoration-2 underline-offset-4">Tanishq485@gmail.com</a></p>
+          <p>Mobile: <a href="tel:+918103942742" className="hover:text-orange-300">+91 81039 42742</a></p>
           <p>Location: Indore, India</p>
         </div>
         <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
-          <a href="#" className="group relative px-4 py-2 rounded-md border border-gray-600/60 bg-gray-800/40 hover:bg-gray-800/70 transition-colors overflow-hidden">
+          <a href="#" className="group relative px-4 py-2 rounded-md border border-neutral-700/60 bg-neutral-900/40 hover:bg-neutral-800/70 transition-colors overflow-hidden">
             <span className="relative z-10">GitHub</span>
-            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-teal-400/10 via-cyan-400/10 to-teal-300/10 transition-opacity" />
+            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-orange-600/10 via-orange-500/10 to-amber-400/10 transition-opacity" />
           </a>
-          <a href="#" className="group relative px-4 py-2 rounded-md border border-gray-600/60 bg-gray-800/40 hover:bg-gray-800/70 transition-colors overflow-hidden">
+          <a href="#" className="group relative px-4 py-2 rounded-md border border-neutral-700/60 bg-neutral-900/40 hover:bg-neutral-800/70 transition-colors overflow-hidden">
             <span className="relative z-10">Portfolio</span>
-            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-teal-400/10 via-cyan-400/10 to-teal-300/10 transition-opacity" />
+            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-orange-600/10 via-orange-500/10 to-amber-400/10 transition-opacity" />
           </a>
-          <a href="#" className="group relative px-4 py-2 rounded-md border border-gray-600/60 bg-gray-800/40 hover:bg-gray-800/70 transition-colors overflow-hidden">
+          <a href="#" className="group relative px-4 py-2 rounded-md border border-neutral-700/60 bg-neutral-900/40 hover:bg-neutral-800/70 transition-colors overflow-hidden">
             <span className="relative z-10">LinkedIn</span>
-            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-teal-400/10 via-cyan-400/10 to-teal-300/10 transition-opacity" />
+            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-orange-600/10 via-orange-500/10 to-amber-400/10 transition-opacity" />
           </a>
         </div>
       </motion.div>

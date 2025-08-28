@@ -106,12 +106,12 @@ const Navbar = () => {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="fixed top-0 left-0 w-full z-50 text-white pointer-events-none">
+  <nav className="fixed top-0 left-0 w-full z-50 text-white pointer-events-none">
         <div className="flex items-center justify-end px-4 sm:px-6 md:px-10 lg:px-16 h-16 sm:h-20 md:h-[18vh] lg:h-[20vh]">
           {/* Hamburger Menu Button - positioned to align with Hero's right navigation */}
           <motion.button
             onClick={toggleMenu}
-            className="pointer-events-auto p-2 sm:p-3 rounded-lg/none sm:rounded-lg hover:bg-black/60 active:bg-black/70 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70"
+            className="pointer-events-auto p-2 sm:p-3 rounded-lg/none sm:rounded-lg hover:bg-black/60 active:bg-black/70 transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/70"
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
@@ -181,7 +181,7 @@ const Navbar = () => {
                           </span>
                           {/* Animated underline / highlight */}
                           <span
-                            className="absolute -bottom-2 left-0 h-[2px] w-0 bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 rounded group-hover:w-full transition-all duration-500"
+                            className="absolute -bottom-2 left-0 h-[2px] w-0 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-400 rounded group-hover:w-full transition-all duration-500"
                           />
                         </span>
                       </motion.button>
@@ -198,11 +198,11 @@ const Navbar = () => {
                 >
                   <span className="text-gray-400 text-xs sm:text-sm tracking-wide uppercase">Follow me</span>
                   <div className="flex justify-center space-x-3 sm:space-x-4 mt-4">
-                    {['LinkedIn', 'GitHub', 'Twitter'].map((social, index) => (
+          {['LinkedIn', 'GitHub', 'Twitter'].map((social, index) => (
                       <motion.a
                         key={social}
                         href="#"
-                        className="text-gray-400 hover:text-white text-xs sm:text-sm transition-colors duration-200"
+            className="text-gray-400 hover:text-orange-400 text-xs sm:text-sm transition-colors duration-200"
                         whileHover={{ y: -2 }}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}

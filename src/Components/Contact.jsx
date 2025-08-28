@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react'
 
+// Theme updated: Dark (black/near-black) with orange + white accents
+
 // Animation variants
 const container = {
   hidden: { opacity: 0 },
@@ -22,9 +24,9 @@ const Contact = () => {
   const [status, setStatus] = useState('idle') // idle | submitting | success | error
 
   const socials = [
-    { label: 'GitHub', href: 'https://github.com/Tanish6738', icon: Github },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/tanishq-chouhan', icon: Linkedin },
-    { label: 'Twitter', href: 'https://twitter.com', icon: Twitter }
+  { label: 'GitHub', href: 'https://github.com/Tanish6738', icon: Github },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/tanishq-chouhan', icon: Linkedin },
+  { label: 'Twitter', href: 'https://twitter.com', icon: Twitter }
   ]
 
   const contactInfo = [
@@ -70,35 +72,35 @@ const Contact = () => {
       initial='hidden'
       whileInView='visible'
       viewport={{ once: true, amount: 0.2 }}
-      className='relative overflow-hidden w-full py-24 px-6 md:px-10 lg:px-14 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-gray-200'
+  className='relative overflow-hidden w-full py-24 px-6 md:px-10 lg:px-14 bg-gradient-to-br from-black via-neutral-900 to-black text-gray-100'
     >
       {/* Ambient glows */}
-      <div className='pointer-events-none absolute -top-28 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl' />
-      <div className='pointer-events-none absolute bottom-0 right-0 w-[30rem] h-[30rem] rounded-full bg-fuchsia-500/10 blur-3xl' />
-      <div className='pointer-events-none absolute top-1/2 -right-40 w-80 h-80 rounded-full bg-cyan-400/10 blur-3xl' />
+  <div className='pointer-events-none absolute -top-28 -left-32 w-96 h-96 rounded-full bg-orange-600/10 blur-3xl' />
+  <div className='pointer-events-none absolute bottom-0 right-0 w-[30rem] h-[30rem] rounded-full bg-orange-500/5 blur-3xl' />
+  <div className='pointer-events-none absolute top-1/2 -right-40 w-80 h-80 rounded-full bg-orange-400/10 blur-3xl' />
 
       <motion.header variants={fadeUp} className='relative z-10 max-w-3xl'>
-        <h2 className='text-4xl md:text-5xl font-bold tracking-tight gradient-text'>Get In Touch</h2>
-        <p className='mt-3 text-sm md:text-base text-teal-200/90 max-w-xl'>Open to collaboration, freelance/contract builds & hackathon teaming. Drop a line and I&apos;ll respond swiftly.</p>
+  <h2 className='text-4xl md:text-5xl font-bold tracking-tight text-white'>Get In Touch</h2>
+  <p className='mt-3 text-sm md:text-base text-orange-300/90 max-w-xl'>Open to collaboration, freelance/contract builds & hackathon teaming. Drop a line and I&apos;ll respond swiftly.</p>
       </motion.header>
 
       {/* Grid Layout */}
       <motion.div variants={fadeUp} className='relative z-10 mt-14 grid gap-10 lg:gap-14 lg:grid-cols-3'>
         {/* Contact Info & Socials */}
         <div className='space-y-8 lg:col-span-1'>
-          <motion.div variants={card} className='group relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-br from-gray-600/20 via-gray-700/10 to-gray-800/40'>
-            <div className='relative h-full rounded-2xl bg-gray-900/70 border border-gray-700/70 backdrop-blur-sm p-6'>
-              <h3 className='text-lg font-semibold tracking-wide mb-4 text-white/95'>Contact Details</h3>
+          <motion.div variants={card} className='group relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-br from-neutral-700/30 via-neutral-800/20 to-neutral-900/40'>
+            <div className='relative h-full rounded-2xl bg-neutral-950/70 border border-neutral-800/70 backdrop-blur-sm p-6'>
+              <h3 className='text-lg font-semibold tracking-wide mb-4 text-white'>Contact Details</h3>
               <ul className='space-y-5 text-sm'>
                 {contactInfo.map(info => {
                   const Icon = info.icon
                   return (
                     <li key={info.title} className='flex items-start gap-4'>
-                      <span className='inline-flex items-center justify-center w-11 h-11 rounded-xl bg-gray-800/70 border border-gray-700/60 text-teal-300'>
+                      <span className='inline-flex items-center justify-center w-11 h-11 rounded-xl bg-neutral-900/70 border border-neutral-700/60 text-orange-400'>
                         <Icon size={20} />
                       </span>
                       <div className='flex-1'>
-                        <p className='text-[0.7rem] font-semibold uppercase tracking-wide text-teal-300/80'>{info.title}</p>
+                        <p className='text-[0.7rem] font-semibold uppercase tracking-wide text-orange-400/80'>{info.title}</p>
                         {info.href ? (
                           <a href={info.href} className='text-gray-300 hover:text-white transition-colors break-words'>{info.value}</a>
                         ) : (
@@ -111,7 +113,7 @@ const Contact = () => {
               </ul>
               <span className='block mt-6 h-px w-full bg-gradient-to-r from-transparent via-gray-600/40 to-transparent' />
               <div className='mt-6'>
-                <p className='text-[0.7rem] font-semibold uppercase tracking-wide text-teal-300/80 mb-3'>Social</p>
+                <p className='text-[0.7rem] font-semibold uppercase tracking-wide text-orange-400/80 mb-3'>Social</p>
                 <div className='flex flex-wrap gap-3'>
                   {socials.map((s, i) => {
                     const Icon = s.icon
@@ -125,11 +127,11 @@ const Contact = () => {
                         whileHover={{ y: -4, rotate: 2 }}
                         whileTap={{ scale: 0.9 }}
                         style={{ transitionDelay: `${i * 60}ms` }}
-                        className='relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-gray-700/60 bg-gray-800/40 text-sm text-gray-300 hover:text-white hover:border-teal-400/50 hover:bg-gray-800/70 transition-colors overflow-hidden'
+                        className='relative inline-flex items-center gap-2 px-4 py-2 rounded-md border border-neutral-700/60 bg-neutral-900/40 text-sm text-gray-300 hover:text-white hover:border-orange-500/60 hover:bg-neutral-800/70 transition-colors overflow-hidden'
                         aria-label={s.label}
                       >
                         <Icon size={16} /> {s.label}
-                        <span className='absolute inset-0 opacity-0 hover:opacity-100 bg-gradient-to-r from-teal-400/10 via-cyan-400/10 to-teal-300/10 transition-opacity' />
+                        <span className='absolute inset-0 opacity-0 hover:opacity-100 bg-gradient-to-r from-orange-500/10 via-orange-400/10 to-orange-600/10 transition-opacity' />
                       </motion.a>
                     )
                   })}
@@ -137,20 +139,20 @@ const Contact = () => {
               </div>
             </div>
           </motion.div>
-          <motion.div variants={card} className='relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-br from-indigo-400/10 via-fuchsia-400/10 to-pink-300/10'>
-            <div className='relative rounded-2xl bg-gray-900/70 border border-gray-700/70 backdrop-blur-sm p-6'>
-              <h4 className='text-base font-semibold tracking-wide mb-4 text-white/95'>Response Time</h4>
-              <p className='text-sm leading-relaxed text-gray-300'>I usually reply within <span className='text-teal-300 font-medium'>24 hours</span>. For urgent matters, email is the fastest channel. Let me know scope, timelines & any constraints for quicker collaboration.</p>
+          <motion.div variants={card} className='relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-br from-orange-600/30 via-orange-500/20 to-orange-700/30'>
+            <div className='relative rounded-2xl bg-neutral-950/70 border border-neutral-800/70 backdrop-blur-sm p-6'>
+              <h4 className='text-base font-semibold tracking-wide mb-4 text-white'>Response Time</h4>
+              <p className='text-sm leading-relaxed text-gray-300'>I usually reply within <span className='text-orange-400 font-medium'>24 hours</span>. For urgent matters, email is the fastest channel. Let me know scope, timelines & any constraints for quicker collaboration.</p>
             </div>
           </motion.div>
         </div>
 
         {/* Form */}
-        <motion.div variants={card} className='lg:col-span-2 group relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-br from-gray-600/20 via-gray-700/10 to-gray-800/40'>
-          <form onSubmit={handleSubmit} className='relative rounded-2xl bg-gray-900/70 border border-gray-700/70 backdrop-blur-sm p-6 md:p-8 flex flex-col gap-6'>
+        <motion.div variants={card} className='lg:col-span-2 group relative overflow-hidden rounded-2xl p-[1px] bg-gradient-to-br from-neutral-700/30 via-neutral-800/20 to-neutral-900/40'>
+          <form onSubmit={handleSubmit} className='relative rounded-2xl bg-neutral-950/70 border border-neutral-800/70 backdrop-blur-sm p-6 md:p-8 flex flex-col gap-6'>
             <div className='grid md:grid-cols-2 gap-6'>
               <div className='flex flex-col gap-2'>
-                <label htmlFor='name' className='text-xs font-semibold uppercase tracking-wide text-teal-300/80'>Name</label>
+                <label htmlFor='name' className='text-xs font-semibold uppercase tracking-wide text-orange-400/80'>Name</label>
                 <input
                   id='name'
                   name='name'
@@ -158,14 +160,14 @@ const Contact = () => {
                   value={form.name}
                   onChange={handleChange}
                   placeholder='Your name'
-                  className={`px-4 py-3 rounded-lg bg-gray-800/60 border ${errors.name ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-gray-700/60 focus:ring-teal-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-400 transition`}
+                  className={`px-4 py-3 rounded-lg bg-neutral-900/60 border ${errors.name ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-neutral-700/60 focus:ring-orange-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-500 transition`}
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? 'name-error' : undefined}
                 />
                 {errors.name && <span id='name-error' className='text-[0.7rem] text-rose-400 font-medium'>{errors.name}</span>}
               </div>
               <div className='flex flex-col gap-2'>
-                <label htmlFor='email' className='text-xs font-semibold uppercase tracking-wide text-teal-300/80'>Email</label>
+                <label htmlFor='email' className='text-xs font-semibold uppercase tracking-wide text-orange-400/80'>Email</label>
                 <input
                   id='email'
                   name='email'
@@ -173,7 +175,7 @@ const Contact = () => {
                   value={form.email}
                   onChange={handleChange}
                   placeholder='you@example.com'
-                  className={`px-4 py-3 rounded-lg bg-gray-800/60 border ${errors.email ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-gray-700/60 focus:ring-teal-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-400 transition`}
+                  className={`px-4 py-3 rounded-lg bg-neutral-900/60 border ${errors.email ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-neutral-700/60 focus:ring-orange-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-500 transition`}
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? 'email-error' : undefined}
                 />
@@ -181,7 +183,7 @@ const Contact = () => {
               </div>
             </div>
             <div className='flex flex-col gap-2'>
-              <label htmlFor='subject' className='text-xs font-semibold uppercase tracking-wide text-teal-300/80'>Subject</label>
+              <label htmlFor='subject' className='text-xs font-semibold uppercase tracking-wide text-orange-400/80'>Subject</label>
               <input
                 id='subject'
                 name='subject'
@@ -189,14 +191,14 @@ const Contact = () => {
                 value={form.subject}
                 onChange={handleChange}
                 placeholder='Project idea / Collaboration / Inquiry'
-                className={`px-4 py-3 rounded-lg bg-gray-800/60 border ${errors.subject ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-gray-700/60 focus:ring-teal-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-400 transition`}
+                className={`px-4 py-3 rounded-lg bg-neutral-900/60 border ${errors.subject ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-neutral-700/60 focus:ring-orange-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-500 transition`}
                 aria-invalid={!!errors.subject}
                 aria-describedby={errors.subject ? 'subject-error' : undefined}
               />
               {errors.subject && <span id='subject-error' className='text-[0.7rem] text-rose-400 font-medium'>{errors.subject}</span>}
             </div>
             <div className='flex flex-col gap-2'>
-              <label htmlFor='message' className='text-xs font-semibold uppercase tracking-wide text-teal-300/80'>Message</label>
+              <label htmlFor='message' className='text-xs font-semibold uppercase tracking-wide text-orange-400/80'>Message</label>
               <textarea
                 id='message'
                 name='message'
@@ -204,7 +206,7 @@ const Contact = () => {
                 value={form.message}
                 onChange={handleChange}
                 placeholder='Briefly outline context, goals & any constraints...'
-                className={`resize-none px-4 py-3 rounded-lg bg-gray-800/60 border ${errors.message ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-gray-700/60 focus:ring-teal-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-400 transition`}
+                className={`resize-none px-4 py-3 rounded-lg bg-neutral-900/60 border ${errors.message ? 'border-rose-500/70 focus:ring-rose-400/40' : 'border-neutral-700/60 focus:ring-orange-400/40'} focus:outline-none focus:ring-2 text-sm text-gray-200 placeholder-gray-500 transition`}
                 aria-invalid={!!errors.message}
                 aria-describedby={errors.message ? 'message-error' : undefined}
               />
@@ -217,17 +219,17 @@ const Contact = () => {
                 whileHover={{ y: -3, scale: 1.03 }}
                 whileTap={{ scale: 0.92 }}
                 disabled={status === 'submitting' || status === 'success'}
-                className='relative inline-flex items-center gap-2 px-7 py-3 rounded-lg border border-teal-500/50 bg-gradient-to-br from-teal-500/20 via-cyan-500/20 to-teal-400/20 text-teal-200 font-medium text-sm tracking-wide hover:text-white hover:from-teal-500/30 hover:to-cyan-500/30 disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-sm overflow-hidden'
+                className='relative inline-flex items-center gap-2 px-7 py-3 rounded-lg border border-orange-500/50 bg-gradient-to-br from-orange-600/25 via-orange-500/15 to-orange-700/25 text-orange-200 font-medium text-sm tracking-wide hover:text-white hover:from-orange-600/40 hover:to-orange-700/40 disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-sm overflow-hidden'
               >
                 <Send size={16} className='relative z-10' />
                 <span className='relative z-10'>{status === 'submitting' ? 'Sending...' : status === 'success' ? 'Sent!' : 'Send Message'}</span>
-                <span className='absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-teal-400/10 via-cyan-400/10 to-teal-300/10 transition-opacity' />
+                <span className='absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-orange-500/15 via-orange-400/10 to-orange-600/15 transition-opacity' />
               </motion.button>
               {status === 'success' && (
                 <motion.span
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className='text-sm font-medium text-teal-300'
+                  className='text-sm font-medium text-orange-400'
                 >Message sent. I&apos;ll reply shortly.</motion.span>
               )}
               {status === 'error' && (

@@ -58,10 +58,10 @@ const Hero = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className='relative overflow-hidden bg-gray-900 min-h-screen w-full flex flex-col md:flex-row items-center md:items-center justify-between px-6 sm:px-8 md:px-16 py-10 md:py-0'
+      className='relative overflow-hidden bg-black min-h-screen w-full flex flex-col md:flex-row items-center md:items-center justify-between px-6 sm:px-8 md:px-16 py-10 md:py-0'
     >
       {/* Ambient gradient overlay */}
-      <div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-gray-800/80 via-gray-900 to-gray-900/90' />
+  <div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-neutral-900/90 via-black to-neutral-950' />
 
       {/* Social Icons (row on mobile, column on desktop) */}
       <motion.div
@@ -79,7 +79,7 @@ const Hero = () => {
               variants={popIn}
               whileHover={{ scale: 1.15, rotate: 2 }}
               whileTap={{ scale: 0.88, rotate: -8 }}
-              className='w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-gray-500/60 bg-gray-800/30 backdrop-blur-sm flex items-center justify-center text-gray-300 hover:text-white hover:border-white transition-all duration-300 shadow-inner hover:shadow-[0_0_12px_-2px_rgba(255,255,255,0.35)] focus:outline-none focus:ring-2 focus:ring-teal-400/70'
+              className='w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-neutral-700/60 bg-neutral-900/40 backdrop-blur-sm flex items-center justify-center text-gray-300 hover:text-white hover:border-orange-500 transition-all duration-300 shadow-inner hover:shadow-[0_0_14px_-2px_rgba(249,115,22,0.45)] focus:outline-none focus:ring-2 focus:ring-orange-500/70'
               style={{ transitionDelay: `${index * 60}ms` }}
               aria-label={social.label}
             >
@@ -96,13 +96,13 @@ const Hero = () => {
       >
         <motion.h1
           variants={popIn}
-          className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-bold gradient-text mb-3 tracking-tight px-2'
+          className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-white mb-3 tracking-tight px-2'
         >
           Hey, I am Tanishq
         </motion.h1>
         <motion.h2
           variants={popIn}
-          className='text-[2.85rem] sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white hero-accent-shadow mb-5 leading-[0.9]'
+          className='text-[2.85rem] sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-orange-500 drop-shadow-[0_0_18px_rgba(249,115,22,0.4)] mb-5 leading-[0.9]'
         >
           Chouhan
         </motion.h2>
@@ -122,10 +122,10 @@ const Hero = () => {
               whileHover={{ y: -3, scale: 1.04 }}
               whileTap={{ scale: 0.92 }}
               onClick={() => handleNavClick(nav.path)}
-              className='relative px-6 py-2.5 rounded-md border border-gray-600/50 text-gray-200 text-sm font-medium tracking-wide bg-gray-800/40 hover:bg-gray-800/70 backdrop-blur-sm transition-colors shadow-sm'
+              className='relative px-6 py-2.5 rounded-md border border-neutral-700/60 text-gray-200 text-sm font-medium tracking-wide bg-neutral-900/40 hover:bg-neutral-800/70 backdrop-blur-sm transition-colors shadow-sm'
             >
               <span className='relative z-10'>{nav.name}</span>
-              <span className='absolute inset-0 rounded-md bg-gradient-to-r from-teal-400/0 via-cyan-400/0 to-teal-300/0 group-hover:from-teal-400/10 group-hover:to-cyan-400/10 transition-all duration-500' />
+              <span className='absolute inset-0 rounded-md bg-gradient-to-r from-orange-500/0 via-orange-400/0 to-amber-400/0 group-hover:from-orange-600/10 group-hover:to-amber-400/10 transition-all duration-500' />
             </motion.button>
           ))}
         </div>
@@ -143,23 +143,23 @@ const Hero = () => {
             whileHover={{ scale: 1.05, x: -6 }}
             whileTap={{ scale: 0.87, rotate: -6, x: -3 }}
             onClick={() => handleNavClick(nav.path)}
-            className='group relative px-8 py-3 border border-gray-600/60 text-gray-200 font-light rounded-lg transition-colors duration-300 text-left min-w-[170px] backdrop-blur-sm overflow-hidden bg-gray-800/30 hover:bg-gray-800/60 focus:outline-none focus:ring-2 focus:ring-teal-400/60'
+            className='group relative px-8 py-3 border border-neutral-700/60 text-gray-200 font-light rounded-lg transition-colors duration-300 text-left min-w-[170px] backdrop-blur-sm overflow-hidden bg-neutral-900/30 hover:bg-neutral-800/60 focus:outline-none focus:ring-2 focus:ring-orange-500/60'
             style={{ transitionDelay: `${index * 70}ms` }}
           >
             <span className='inline-block relative'>
               <span className='relative z-10 transition-colors duration-300 group-hover:text-gray-100'>
                 {nav.name}
               </span>
-              <span className='absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 rounded group-hover:w-full transition-all duration-500' />
+              <span className='absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-400 rounded group-hover:w-full transition-all duration-500' />
             </span>
-            <span className='absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-teal-400/10 via-cyan-400/10 to-teal-300/10 transition-opacity duration-500' />
+            <span className='absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-r from-orange-600/10 via-orange-500/10 to-amber-400/10 transition-opacity duration-500' />
           </motion.button>
         ))}
       </motion.div>
 
       {/* Decorative placeholders (kept minimal on mobile) */}
-      <div className='absolute -top-24 -right-24 w-72 h-72 bg-teal-400/10 rounded-full blur-3xl pointer-events-none animate-pulse' />
-      <div className='absolute bottom-0 left-0 w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none' />
+  <div className='absolute -top-24 -right-24 w-72 h-72 bg-orange-600/10 rounded-full blur-3xl pointer-events-none animate-pulse' />
+  <div className='absolute bottom-0 left-0 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl pointer-events-none' />
     </motion.section>
   )
 }
