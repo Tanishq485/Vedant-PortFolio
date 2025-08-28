@@ -24,7 +24,8 @@ const Hero = () => {
   ]
 
   const handleNavClick = (path) => {
-    navigate(path)
+    // Delay navigation slightly so the whileTap animation is perceptible
+    setTimeout(() => navigate(path), 170)
   }
 
   return (
@@ -47,15 +48,15 @@ const Hero = () => {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className='w-12 h-12 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-300 hover:text-white hover:border-white transition-all duration-300 hover:scale-110'
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.95 }}
+              className='w-12 h-12 rounded-full border-2 border-gray-400 flex items-center justify-center text-gray-300 hover:text-white hover:border-white transition-all duration-300 group'
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.55, type: 'spring', stiffness: 180, delay: 0.4 + index * 0.1 }}
+              whileHover={{ scale: 1.18, rotate: 2 }}
+              whileTap={{ scale: 0.86, rotate: -8, borderColor: '#ffffff', backgroundColor: 'rgba(255,255,255,0.08)' }}
               aria-label={social.label}
             >
-              <IconComponent size={20} />
+              <IconComponent size={20} className='transition-colors duration-300' />
             </motion.a>
           )
         })}
@@ -69,7 +70,7 @@ const Hero = () => {
         transition={{ duration: 0.8, delay: 0.6 }}
       >
         <motion.h1 
-          className='text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4'
+          className='text-4xl md:text-6xl lg:text-7xl font-sans font-bold gradient-text mb-2 tracking-tight'
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -77,7 +78,7 @@ const Hero = () => {
           Hey, I am Tanishq
         </motion.h1>
         <motion.h2 
-          className='text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4'
+          className='text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white hero-accent-shadow mb-6 leading-[0.9]'
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
@@ -87,7 +88,7 @@ const Hero = () => {
         
         {/* Optional: Add a subtitle or description */}
         <motion.p 
-          className='text-lg md:text-xl text-gray-400 max-w-lg'
+          className='text-lg md:text-xl text-gray-300 font-hero-subtitle tracking-wide max-w-lg'
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.2 }}
@@ -107,14 +108,19 @@ const Hero = () => {
           <motion.button
             key={nav.name}
             onClick={() => handleNavClick(nav.path)}
-            className='px-8 py-3 border-2 border-gray-400 text-gray-300 font-medium rounded-lg hover:bg-white hover:text-gray-900 transition-all duration-300 text-center min-w-[120px] hover:border-white'
+            className='group relative px-8 py-3 border-2 border-gray-500/60 text-gray-200 font-light rounded-lg transition-colors duration-300 text-left min-w-[160px] backdrop-blur-sm overflow-hidden'
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.4 + index * 0.1 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.55, type: 'spring', stiffness: 180, delay: 1.4 + index * 0.1 }}
+            whileHover={{ scale: 1.04, x: -6 }}
+            whileTap={{ scale: 0.86, rotate: -6, x: -4 }}
           >
-            {nav.name}
+            <span className='inline-block relative'>
+              <span className='relative z-10 transition-colors duration-300 group-hover:text-gray-100'>
+                {nav.name}
+              </span>
+              <span className='absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 rounded group-hover:w-full transition-all duration-500' />
+            </span>
           </motion.button>
         ))}
       </motion.div>

@@ -12,8 +12,11 @@ const Navbar = () => {
   }
 
   const handleNavClick = (path) => {
-    navigate(path)
-    setIsMenuOpen(false) // Close the menu after navigation
+    // Delay to let tap animation play
+    setTimeout(() => {
+      navigate(path)
+      setIsMenuOpen(false)
+    }, 170)
   }
 
   const navLinks = [
@@ -150,20 +153,23 @@ const Navbar = () => {
                       custom={index}
                       variants={linkVariants}
                     >
-                      <button
+                      <motion.button
                         onClick={() => handleNavClick(link.path)}
-                        className="block text-white text-4xl md:text-6xl font-light hover:text-gray-300 transition-colors duration-300 w-full text-left"
+                        className="group relative block text-white text-4xl md:text-6xl font-light w-full text-left focus:outline-none"
+                        whileHover={{ scale: 1.04, x: -6 }}
+                        whileTap={{ scale: 0.86, rotate: -6, x: -4 }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 18 }}
                       >
-                        <motion.span
-                          whileHover={{ 
-                            scale: 1.05,
-                            textShadow: '0 0 20px rgba(255,255,255,0.3)'
-                          }}
-                          className="inline-block"
-                        >
-                          {link.name}
-                        </motion.span>
-                      </button>
+                        <span className="inline-block relative">
+                          <span className="relative z-10 transition-colors duration-300 group-hover:text-gray-200">
+                            {link.name}
+                          </span>
+                          {/* Animated underline / highlight */}
+                          <span
+                            className="absolute -bottom-2 left-0 h-[2px] w-0 bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-300 rounded group-hover:w-full transition-all duration-500"
+                          />
+                        </span>
+                      </motion.button>
                     </motion.div>
                   ))}
                 </nav>

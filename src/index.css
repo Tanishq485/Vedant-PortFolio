@@ -1,4 +1,5 @@
 @import "tailwindcss";
+/* Fonts now loaded via <link> in index.html for better performance */
 
 :root {
   --hue-6-transparent: rgba(140, 240, 204, 0.6);
@@ -14,4 +15,33 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* Typography utility classes */
+.font-display { font-family: 'Playfair Display', serif; }
+.font-sans { font-family: 'Space Grotesk', system-ui, sans-serif; }
+.font-hero-title { font-family: 'Playfair Display', serif; letter-spacing: 1px; }
+
+.font-hero-subtitle { font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 500; letter-spacing: 0.5px; }
+
+/* Animated gradient text */
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(90deg,#14b8a6,#34d399,#0ea5e9,#14b8a6);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-move 8s ease infinite;
+  filter: drop-shadow(0 0 6px rgba(20,184,166,0.25));
+}
+
+.hero-accent-shadow {
+  text-shadow: 0 2px 8px rgba(15,118,110,0.35), 0 4px 18px rgba(6,182,212,0.25);
 }
