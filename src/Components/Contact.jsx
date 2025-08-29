@@ -25,12 +25,12 @@ const Contact = () => {
 
   const socials = [
   { label: 'GitHub', href: 'https://github.com/Tanish6738', icon: Github },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/tanishq-chouhan', icon: Linkedin },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/Vedant-Bobde', icon: Linkedin },
   { label: 'Twitter', href: 'https://twitter.com', icon: Twitter }
   ]
 
   const contactInfo = [
-    { icon: Mail, title: 'Email', value: 'Tanishq485@gmail.com', href: 'mailto:Tanishq485@gmail.com' },
+    { icon: Mail, title: 'Email', value: 'Vedant485@gmail.com', href: 'mailto:Vedant485@gmail.com' },
     { icon: Phone, title: 'Phone', value: '+91 81039 42742', href: 'tel:+918103942742' },
     { icon: MapPin, title: 'Location', value: 'Indore, India' }
   ]
