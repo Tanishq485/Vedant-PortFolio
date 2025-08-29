@@ -73,7 +73,7 @@ const About = () => {
 
       <motion.div variants={fadeUp} className="relative z-10 mt-10 max-w-4xl space-y-6 text-base md:text-lg leading-relaxed text-gray-300">
         <p>
-          I'm <span className="font-semibold text-white">Tanishq Chouhan</span>, a full stack developer from Indore focused on shipping robust, scalable and DX‑friendly web products. I own the journey end‑to‑end: data modeling, API layers, secure integration, interactive React UIs and iterative refinement with instrumentation.
+          I'm <span className="font-semibold text-white">Vedant Bobde</span>, a full stack Java developer from Indore focused on shipping robust, scalable and DX‑friendly web products. I own the journey end‑to‑end: data modeling, API layers, secure integration, interactive React UIs and iterative refinement with instrumentation.
         </p>
         <p>
           Recent work blends AI assistance for code generation, static analysis and breach detection—used intentionally to amplify velocity rather than bypass understanding. I value clarity, testability, and measurable impact over unnecessary complexity.
