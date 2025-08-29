@@ -98,19 +98,19 @@ const Hero = () => {
           variants={popIn}
           className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-bold text-white mb-3 tracking-tight px-2'
         >
-          Hey, I am Tanishq
+          Hey, I am Vedant
         </motion.h1>
         <motion.h2
           variants={popIn}
           className='text-[2.85rem] sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-orange-500 drop-shadow-[0_0_18px_rgba(249,115,22,0.4)] mb-5 leading-[0.9]'
         >
-          Chouhan
+          Bobde
         </motion.h2>
         <motion.p
           variants={subtleUp}
           className='text-base sm:text-lg md:text-xl text-gray-300 font-hero-subtitle tracking-wide max-w-xl px-4 sm:px-0'
         >
-          Full Stack Developer & Creative Designer
+          Full Stack Java Developer
         </motion.p>
 
         {/* Mobile navigation buttons inline */}
